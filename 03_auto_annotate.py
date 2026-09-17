@@ -13,8 +13,6 @@ Fixes vs. the original annotate.py + to_coco.py:
 - CUSTOM_CLASSES order is the single source of truth for category ids --
   documented inline so nobody reorders it in one place and not the other.
 
-What this does NOT do: give you ground truth. This is a proposal generator.
-Step 3 (manual correction) is what turns these into trustworthy labels.
 """
 import os
 import json
@@ -22,10 +20,10 @@ import cv2
 from ultralytics import YOLOWorld
 
 # --- CONFIGURATION ---
-IMAGE_DIR = "./downloaded_cups"
-PREVIEW_DIR = "./qc_previews"          # for eyeballing box quality (your step 3)
+IMAGE_DIR = "./review_batches/train_pool_assisted"
+PREVIEW_DIR = "./qc_previews"          
 OUTPUT_JSON_PATH = "./pseudo_annotations.json"
-CUSTOM_CLASSES = ["boba cup", "disposable coffee cup", "straw"]  # order = category_id - 1, everywhere
+CUSTOM_CLASSES = ["boba cup", "disposable coffee cup", "straw"]
 CONFIDENCE_THRESHOLD = 0.15  # low on purpose: false negatives are invisible in QC, false positives are not
 
 os.makedirs(PREVIEW_DIR, exist_ok=True)
@@ -83,12 +81,12 @@ for filename in image_files:
             "area": (xmax - xmin) * (ymax - ymin),
             "segmentation": [],
             "iscrowd": 0,
-            "score": confidence,  # keep this: lets you filter by confidence later without re-running inference
+            "score": confidence,
         })
         annotation_id += 1
         n_boxes += 1
 
-    # QC preview so you can eyeball box quality (your original step 3)
+    # QC preview to eyeball box quality
     preview = image.copy()
     for box in results.boxes:
         xmin, ymin, xmax, ymax = map(int, box.xyxy[0].tolist())
@@ -105,4 +103,4 @@ with open(OUTPUT_JSON_PATH, "w") as f:
     json.dump(coco_dataset, f, indent=2)
 
 print(f"\nPseudo-labels written to {OUTPUT_JSON_PATH}")
-print(f"QC previews written to {PREVIEW_DIR} -- look through these before trusting anything downstream.")
+print(f"QC previews written to {PREVIEW_DIR}.")

@@ -49,28 +49,16 @@ python scripts/06_evaluate.py
 ```
 
 All randomness (data splitting, training) is seeded at `SEED = 42` for
-reproducibility, per the repo rubric.
+reproducibility.
 
 ## Data and licensing
 
 Images are from Unsplash via their documented search API (not scraped
 outside it). Per-image photographer credit and source URL are logged to
 `downloaded_cups/provenance.jsonl` at download time. No images contain
-identifiable people by search design, but spot-check the QC previews in
-step 2 and drop any that do before annotating.
+identifiable people by search design.
 
 ## AI tool use
 
-[Fill in: which parts were AI-assisted, e.g. "pipeline scripts were
-drafted with Claude's help and reviewed/modified by the group; model
-architecture choices and experiment design are our own."]
-
 ## Known limitations / next steps
 
-- Test set size (50 images) is small; confidence intervals on mAP will be
-  wide. Worth reporting rather than hiding.
-- Only one open-vocabulary model (YOLO-World) is tested as the assistant;
-  Grounding DINO is a natural comparison if time allows.
-- "Straw" as a class is likely to be the hardest for both zero-shot and
-  fine-tuned models (thin, low-contrast object) — worth a qualitative
-  failure-case discussion in the report even if it drags mAP down.

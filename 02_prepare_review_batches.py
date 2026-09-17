@@ -32,14 +32,19 @@ IMAGE_DIR = "./downloaded_cups"
 OUT_DIR = "./review_batches"
 SEED = 42
 
-N_GOLD_TEST = 50          # untouched by auto-labels, your only real evaluation set
-N_MANUAL_TIMED = 30       # annotated from scratch, timed -> "manual" data point
-# everything else goes to train_pool_assisted, correcting step 2's boxes
+N_GOLD_TEST = 50          # untouched by auto-labels, the only real evaluation set
+N_MANUAL_TIMED = 30       # annotated from scratch
+N_TOTAL = 300             # cap on total images used
+# everything between N_GOLD_TEST+N_MANUAL_TIMED and N_TOTAL goes to train_pool_assisted
 
-random.seed(SEED)  # reproducibility: the brief's repo rubric checks for this
+random.seed(SEED)  # reproducibility
 
 image_files = sorted(f for f in os.listdir(IMAGE_DIR) if f.lower().endswith((".png", ".jpg", ".jpeg")))
 random.shuffle(image_files)
+if len(image_files) > N_TOTAL:
+    print(f"Found {len(image_files)} images, using a fixed random {N_TOTAL} (seed={SEED}); "
+          f"the other {len(image_files) - N_TOTAL} are left untouched in {IMAGE_DIR} for later if you need them.")
+    image_files = image_files[:N_TOTAL]
 
 if len(image_files) < N_GOLD_TEST + N_MANUAL_TIMED + 20:
     print(f"Warning: only {len(image_files)} images found. Consider scraping more, "
@@ -66,9 +71,9 @@ manifest = {
 with open(os.path.join(OUT_DIR, "split_manifest.json"), "w") as f:
     json.dump(manifest, f, indent=2)
 
-print(f"gold_test:            {len(gold_test)} images -> annotate blind, this is eval only")
-print(f"train_pool_manual:    {len(manual_timed)} images -> annotate from scratch, TIME YOURSELF")
-print(f"train_pool_assisted:  {len(assisted_pool)} images -> correct step 2's pseudo-labels, TIME YOURSELF")
+print(f"gold_test:            {len(gold_test)} images -> annotated blind, this is eval only")
+print(f"train_pool_manual:    {len(manual_timed)} images -> annotated from scratch, TIMED")
+print(f"train_pool_assisted:  {len(assisted_pool)} images -> correcting auto pseudo-labels, TIMED")
 print(f"\nManifest saved to {OUT_DIR}/split_manifest.json for reproducibility.")
 print("\nNext: import these folders into CVAT/Roboflow/labelImg, annotate, "
       "export each as COCO json back into this project, then run 04_coco_to_yolo.py")

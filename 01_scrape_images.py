@@ -17,10 +17,14 @@ import os
 import json
 import time
 import requests
+from dotenv import load_dotenv
+
+load_dotenv()
 
 # --- CONFIGURATION ---
 ACCESS_KEY = os.environ.get("UNSPLASH_ACCESS_KEY", "YOUR_UNSPLASH_ACCESS_KEY")
-SEARCH_QUERIES = ["boba cup", "disposable coffee cup", "iced coffee cup"]
+SEARCH_QUERIES = ["boba cup", "disposable coffee cup", "iced coffee cup",
+                   "takeaway coffee cup", "bubble tea cup", "plastic cup with straw"]
 DOWNLOAD_DIR = "./downloaded_cups"
 IMAGES_PER_QUERY = 60          # total images wanted per query
 PER_PAGE = 30                  # Unsplash max per page
