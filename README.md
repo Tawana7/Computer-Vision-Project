@@ -5,7 +5,7 @@ effort while still producing a dataset that trains a usable disposable-cup
 detector, compared against fully manual annotation, across increasing
 amounts of training data.
 
-## Claim, experiment, number (per the brief)
+## The claim, experiment, and number
 
 - **Claim**: correcting YOLO-World's proposed boxes is faster per image than
   drawing boxes from scratch, and the detector trained on the corrected labels
@@ -85,22 +85,16 @@ reproducibility.
 
 Images are from Unsplash via their documented search API (not scraped
 outside it). Per-image photographer credit and source URL are logged to
-`downloaded_cups/provenance.jsonl` at download time. No images contain
-identifiable people by search design, but spot-check the QC previews in
-step 2 and drop any that do before annotating.
+`downloaded_cups/provenance.jsonl` at download time.
 
 ## AI tool use
-
-[Fill in: which parts were AI-assisted, e.g. "pipeline scripts were
-drafted with Claude's help and reviewed/modified by the group; model
-architecture choices and experiment design are our own."]
+Anthropic's Claude was used to help write and debug the python scripts for the experiment, to review the design of the experiment and to help draft this report. The author did all of the annotation, ran all of the experiments, and is responsible for every claim in the report. Every number in the report is generated from the result files in the repository.
 
 ## Known limitations / next steps
 
 - Test set size (50 images) is small; confidence intervals on mAP will be
-  wide. Worth reporting rather than hiding.
+  wide.
 - Only one open-vocabulary model (YOLO-World) is tested as the assistant;
-  Grounding DINO is a natural comparison if time allows.
+  Grounding DINO is a natural comparison.
 - "Straw" as a class is likely to be the hardest for both zero-shot and
-  fine-tuned models (thin, low-contrast object) — worth a qualitative
-  failure-case discussion in the report even if it drags mAP down.
+  fine-tuned models (thin, low-contrast object).
