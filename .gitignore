@@ -1,3 +1,9 @@
 .env
 downloaded_cups/
 review_batches/
+qc_previews/
+upload_cups/
+yolo_dataset/
+results.txt
+annotation zips
+weights/

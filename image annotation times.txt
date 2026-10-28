@@ -1,0 +1,11 @@
+gold_test: 50 images logged, total 43.3 min, mean 52.0s, median 45.6s, stdev 30.0s
+Log: timing_log.csv
+
+train_pool_manual: 30 images logged, total 25.8 min, mean 51.7s, median 46.9s, stdev 27.8s
+Log: timing_log.csv
+
+train_pool_assisted: 51 images logged, total 26.1 min, mean 30.8s, median 18.7s, stdev 24.2s
+Log: timing_log.csv
+
+train_pool_assisted: 220 images logged, total 101.2 min, mean 27.6s, median 18.1s, stdev 23.0s
+Log: timing_log.csv

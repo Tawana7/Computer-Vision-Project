@@ -1,0 +1,35 @@
+TIMING (seconds per image unless stated)
+  Manual, test set         n= 50  total=43.3 min  mean=52.0  median=45.6  std=30.0
+  Manual, training set     n= 30  total=25.8 min  mean=51.7  median=46.9  std=27.8
+  Manual, pooled           n= 80  total=69.2 min  mean=51.9  median=46.8  std=29.0
+  Assisted (correction)    n=220  total=101.2 min  mean=27.6  median=18.1  std=23.0
+  mean reduction 47%, median reduction 61%
+  bootstrap 95% CI of (manual mean - assisted mean): 17.3 to 31.4 s
+  first 51 assisted: 30.8 s; remaining 169: 26.6 s
+  assisted images done by hand would take ~190 min; assisted route took 101.2 min; saving ~89 min
+
+ACCURACY (test set; mean +/- std over seeds)
+  Zero-shot      n=  0 seeds=1  mAP50=0.457  mAP50-95=0.372  Boba cup=0.450  Coffee cup=0.376  Straw=0.544
+  Assisted-30    n= 30 seeds=3  mAP50=0.469+-0.017  mAP50-95=0.341+-0.011  Boba cup=0.537+-0.057  Coffee cup=0.362+-0.060  Straw=0.507+-0.029
+  Assisted-50    n= 50 seeds=1  mAP50=0.473  mAP50-95=0.367  Boba cup=0.606  Coffee cup=0.389  Straw=0.424
+  Assisted-100   n=100 seeds=1  mAP50=0.646  mAP50-95=0.514  Boba cup=0.737  Coffee cup=0.628  Straw=0.572
+  Assisted-150   n=150 seeds=1  mAP50=0.703  mAP50-95=0.548  Boba cup=0.796  Coffee cup=0.683  Straw=0.631
+  Assisted-195   n=195 seeds=3  mAP50=0.687+-0.017  mAP50-95=0.564+-0.009  Boba cup=0.791+-0.052  Coffee cup=0.659+-0.039  Straw=0.610+-0.033
+  Raw-195        n=195 seeds=3  mAP50=0.271+-0.007  mAP50-95=0.212+-0.011  Boba cup=0.415+-0.016  Coffee cup=0.335+-0.025  Straw=0.062+-0.024
+  Manual-30      n= 30 seeds=3  mAP50=0.518+-0.030  mAP50-95=0.381+-0.015  Boba cup=0.637+-0.029  Coffee cup=0.363+-0.037  Straw=0.553+-0.089
+  Mixed-30       n= 30 seeds=3  mAP50=0.543+-0.018  mAP50-95=0.393+-0.009  Boba cup=0.708+-0.073  Coffee cup=0.398+-0.015  Straw=0.522+-0.114
+  Mixed-195      n=195 seeds=3  mAP50=0.720+-0.016  mAP50-95=0.593+-0.023  Boba cup=0.828+-0.041  Coffee cup=0.670+-0.074  Straw=0.663+-0.048
+
+BOX COUNTS PER CLASS, assisted batch
+  raw (conf >= 0.25): {'Boba cup': 206, 'Coffee cup': 52, 'Straw': 3}   corrected: {'Boba cup': 105, 'Coffee cup': 128, 'Straw': 78}
+
+ESTIMATED ANNOTATION MINUTES (images x mean seconds per image of each method)
+  Assisted-30    13.8 min   mAP50=0.469
+  Assisted-50    23.0 min   mAP50=0.473
+  Assisted-100   46.0 min   mAP50=0.646
+  Assisted-150   69.0 min   mAP50=0.703
+  Assisted-195   89.7 min   mAP50=0.687
+  Raw-195        0.0 min   mAP50=0.271
+  Manual-30      25.9 min   mAP50=0.518
+  Mixed-30       19.9 min   mAP50=0.543
+  Mixed-195      101.8 min   mAP50=0.720

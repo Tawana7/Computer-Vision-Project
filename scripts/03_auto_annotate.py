@@ -1,18 +1,5 @@
 """
-Step 2: Zero-shot pseudo-labelling with YOLO-World.
-
-Fixes vs. the original annotate.py + to_coco.py:
-- Loads the model ONCE and runs inference ONCE per image, then derives both
-  the COCO json and the QC preview images from that single pass (the old
-  scripts ran inference twice, independently, which wastes time and risks
-  the two outputs silently drifting apart if you tune the threshold in
-  only one file).
-- Uses ultralytics' native YOLO-World support instead of the separate
-  `inference` + `supervision` stack, so the labelling step and the later
-  fine-tuning step (03/04) share one library.
-- CUSTOM_CLASSES order is the single source of truth for category ids --
-  documented inline so nobody reorders it in one place and not the other.
-
+This script does zero-shot pseudo-labelling with YOLO-World.
 """
 import os
 import json
@@ -23,8 +10,8 @@ from ultralytics import YOLOWorld
 IMAGE_DIR = "./review_batches/train_pool_assisted"
 PREVIEW_DIR = "./qc_previews"          
 OUTPUT_JSON_PATH = "./pseudo_annotations.json"
-CUSTOM_CLASSES = ["boba cup", "disposable coffee cup", "straw"]
-CONFIDENCE_THRESHOLD = 0.15  # low on purpose: false negatives are invisible in QC, false positives are not
+CUSTOM_CLASSES = ["plastic boba cup", "disposable coffee cup", "drinking straw"]
+CONFIDENCE_THRESHOLD = 0.05  # low on purpose: false negatives are invisible in QC, false positives are not
 
 os.makedirs(PREVIEW_DIR, exist_ok=True)
 

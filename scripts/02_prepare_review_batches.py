@@ -1,6 +1,6 @@
 """
-Step 3: Split images into batches for MANUAL correction, and set up the
-timing measurement your proposal promised.
+This script splits images into batches for manual correction, and sets up the
+timing measurements.
 
 Why this step exists (read this before running it):
 YOLO-World's pseudo-labels are not ground truth. If you fine-tune on them
@@ -17,11 +17,6 @@ This script creates three groups from your downloaded images:
   3. train_pool_assisted/ -- the rest, where you correct the pseudo-labels
                       from step 2 instead of drawing boxes from scratch.
                       Time this too -- that gap IS your headline result.
-
-Use CVAT, Roboflow, or labelImg (whichever Lab 5 used) to do the actual
-annotating -- don't hand-roll a labelling GUI, that's not where your eight
-weeks should go. CVAT has built-in per-task time tracking if you want it
-for free; otherwise just note wall-clock start/end per batch.
 """
 import os
 import random

@@ -1,17 +1,12 @@
 """
-Step 1: Collect raw images from Unsplash.
+This script collects raw images from Unsplash.
 
-Fixes vs. the original scrape_images.py:
-- Uses the real search endpoint (api.unsplash.com/search/photos) with the
-  key sent as an Authorization header, not glued onto a broken URL.
+Short summary of what this script does:
 - Paginates properly instead of relying on a single request.
 - Dedupes by Unsplash photo id across queries (a cup photo can match both
   "boba cup" and "disposable coffee cup").
-- Records provenance (photographer, source URL, license) per image, so you
-  have the "checked the licence, recorded what I found" evidence the brief
-  asks for. Unsplash's licence is broad but scraping outside the documented
-  API can violate their ToS -- this script stays inside it.
-- Respects the demo-tier rate limit (50 requests/hour) with basic backoff.
+- Records provenance (photographer, source URL, license) per image.
+- Respects the demo-tier rate limit (50 requests/hour) with basic backoff for a free account.
 """
 import os
 import json
